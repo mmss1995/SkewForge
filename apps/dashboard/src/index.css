@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --color-forge-50: #f5f3ff;
+  --color-forge-100: #ede9fe;
+  --color-forge-400: #a78bfa;
+  --color-forge-500: #8b5cf6;
+  --color-forge-600: #7c3aed;
+  --color-forge-700: #6d28d9;
+}
+
+/* Chart roles (dataviz reference palette, slots 1-2), stepped separately for each surface. */
+:root {
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --series-1: #3987e5;
+    --series-2: #d95926;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+  }
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-forge-500;
+  }
+}

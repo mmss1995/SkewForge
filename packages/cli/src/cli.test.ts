@@ -53,6 +53,7 @@ beforeAll(async () => {
     spaFallback: true,
     maxBlobBytes: 1024 * 1024,
     dashboardDir: null,
+    publicUrl: null,
   })
   ;[adminServer, adminUrl] = await listen(gateway.admin)
   ;[edgeServer, edgeUrl] = await listen(gateway.edge)

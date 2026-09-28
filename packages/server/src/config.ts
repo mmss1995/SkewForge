@@ -16,6 +16,8 @@ export interface Config {
   spaFallback: boolean
   maxBlobBytes: number
   dashboardDir: string | null
+  /** Public origin of the edge listener, used for preview links in the dashboard and CLI. */
+  publicUrl: string | null
 }
 
 const UNITS: Record<string, number> = { ms: 1, s: 1000, m: 60_000, h: 3_600_000, d: 86_400_000 }
@@ -56,5 +58,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     spaFallback: env.SPA_FALLBACK !== 'false',
     maxBlobBytes: integer(env.MAX_BLOB_BYTES, 64 * 1024 * 1024, 'MAX_BLOB_BYTES'),
     dashboardDir: env.DASHBOARD_DIR ? resolve(env.DASHBOARD_DIR) : null,
+    publicUrl: env.PUBLIC_URL ? env.PUBLIC_URL.replace(/\/+$/, '') : null,
   }
 }

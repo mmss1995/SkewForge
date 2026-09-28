@@ -13,7 +13,7 @@ import type { Telemetry } from '../telemetry'
 import { previewSignature } from './edge'
 
 export interface AdminDeps {
-  config: Pick<Config, 'adminToken' | 'maxBlobBytes' | 'dashboardDir'>
+  config: Pick<Config, 'adminToken' | 'maxBlobBytes' | 'dashboardDir' | 'publicUrl'>
   service: DeploymentService
   blobs: BlobStore
   sessions: SessionTracker
@@ -47,12 +47,13 @@ export function createAdminApp({ config, service, blobs, sessions, telemetry, st
   api.use(bearer(config.adminToken))
   api.use(express.json({ limit: '8mb' }))
 
-  const previewUrl = (id: string) => `${RUNTIME_PREFIX}/preview/${encodeURIComponent(id)}?sig=${previewSignature(config.adminToken, id)}`
+  const previewUrl = (id: string) => `${config.publicUrl ?? ''}${RUNTIME_PREFIX}/preview/${encodeURIComponent(id)}?sig=${previewSignature(config.adminToken, id)}`
 
   api.get('/overview', (_req, res) => {
     const counts = sessions.counts()
     res.json({
       current: service.current(),
+      publicUrl: config.publicUrl,
       deployments: service.list().map((deployment) => ({ ...deployment, activeSessions: counts.get(deployment.id) ?? 0 })),
       promotions: service.promotions().slice(0, 50),
       retention: service.retention,

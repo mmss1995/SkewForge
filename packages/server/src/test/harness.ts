@@ -37,6 +37,7 @@ export async function createHarness(overrides: Partial<Config> = {}): Promise<Ha
     spaFallback: true,
     maxBlobBytes: 1024 * 1024,
     dashboardDir: null,
+    publicUrl: null,
     ...overrides,
   }
   const gateway = await createGateway(config, { now: () => clock.now })
