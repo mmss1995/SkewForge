@@ -277,8 +277,9 @@ export class SkewClient {
     const recover = (event: Event) => {
       if (reloadOnce(() => this.reload(), storage)) event.preventDefault()
     }
-    // Vite fires this before rejecting a dynamic import whose preload failed.
-    this.listen(win, 'vite:preloadError', recover)
+    // Vite fires this before rejecting a dynamic import whose preload failed. Preventing it would
+    // make the import resolve to undefined, so let the rejection through and just reload.
+    this.listen(win, 'vite:preloadError', () => void reloadOnce(() => this.reload(), storage))
     this.listen(win, 'unhandledrejection', (event) => {
       if (isChunkLoadError((event as PromiseRejectionEvent).reason)) recover(event)
     })
