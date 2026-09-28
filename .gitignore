@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.local
+*.log
+.DS_Store
+*.tsbuildinfo
+.skewforge-data/
+test-results/
+playwright-report/
+.demo/

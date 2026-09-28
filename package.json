@@ -1,0 +1,35 @@
+{
+  "name": "skewforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted version skew protection: old tabs keep working after every deploy",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "examples/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently -n gateway,dashboard -c blue,magenta \"npm run dev -w @skewforge/server\" \"npm run dev -w @skewforge/dashboard\"",
+    "build": "npm run build -w @skewforge/dashboard && npm run build -w @skewforge/server && npm run build -w @skewforge/cli",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "oxlint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "skewforge": "tsx packages/cli/src/bin.ts",
+    "demo": "bash scripts/demo.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "concurrently": "^10.0.5",
+    "oxlint": "^1.85.0",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.2"
+  }
+}
