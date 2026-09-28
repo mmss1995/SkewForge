@@ -1,0 +1,20 @@
+# The gateway with persistent storage. Port 8080 is your app (put your CDN or load balancer in
+# front of it); 8081 is the admin API and dashboard — keep it on a private network.
+services:
+  skewforge:
+    build: .
+    image: skewforge:local
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+      - '127.0.0.1:8081:8081'
+    environment:
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-change-me-to-a-long-random-string}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      RETENTION_KEEP_LAST: ${RETENTION_KEEP_LAST:-5}
+      RETENTION_MIN_AGE: ${RETENTION_MIN_AGE:-7d}
+    volumes:
+      - skewforge-data:/data
+
+volumes:
+  skewforge-data:
