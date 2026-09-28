@@ -1,6 +1,6 @@
 import type { AddressInfo } from 'node:net'
 import type { Server } from 'node:http'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createHarness, V1, V2, type Harness } from '../test/harness'
 
 let h: Harness
@@ -40,6 +40,15 @@ async function readEvents(res: Response, count: number): Promise<unknown[]> {
 }
 
 describe('version stream', () => {
+  it('turns tabs away once the stream limit is reached', async () => {
+    const { VersionStreamHub } = await import('./stream')
+    const hub = new VersionStreamHub(h.gateway.service, 25_000, 0)
+    const res = { status: vi.fn().mockReturnThis(), setHeader: vi.fn().mockReturnThis(), end: vi.fn() }
+    hub.attach(res as never, null)
+    expect(res.status).toHaveBeenCalledWith(503)
+    hub.close()
+  })
+
   it('sends the initial status, then pushes a promotion to tabs on the old deployment', async () => {
     await h.deploy('v1', V1)
     const res = await fetch(`${base}/__skewforge/stream?running=v1`)

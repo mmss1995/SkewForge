@@ -20,6 +20,8 @@ export class VersionStreamHub {
   constructor(
     private readonly service: DeploymentService,
     heartbeatMs = 25_000,
+    /** Beyond this many open streams new tabs are told to poll instead (each stream holds a socket). */
+    private readonly maxListeners = 10_000,
   ) {
     service.on('change', () => this.broadcast())
     this.heartbeat = setInterval(() => {
@@ -33,6 +35,11 @@ export class VersionStreamHub {
   }
 
   attach(res: Response, running: string | null): void {
+    if (this.listeners.size >= this.maxListeners) {
+      // A non-200 closes the EventSource for good; the client then falls back to polling.
+      res.status(503).setHeader('retry-after', '60').end()
+      return
+    }
     res.writeHead(200, {
       'content-type': 'text/event-stream; charset=utf-8',
       'cache-control': 'no-cache, no-transform',

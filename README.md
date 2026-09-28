@@ -8,7 +8,7 @@
 ![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=black)
 ![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vue.js&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8-646cff?logo=vite&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-131%20unit%20%2B%207%20e2e-brightgreen)
+![Tests](https://img.shields.io/badge/tests-132%20unit%20%2B%207%20e2e-brightgreen)
 
 ![Dashboard](docs/screenshots/dashboard-dark.png)
 
@@ -188,7 +188,7 @@ Using Next.js? It can keep old `/_next/static` files alive in asset-only mode. T
 ## 🧪 Tests
 
 ```bash
-npm test              # 131 unit/integration tests across 8 workspaces (Vitest)
+npm test              # 132 unit/integration tests across 8 workspaces (Vitest)
 npm run test:e2e      # 7 Playwright tests: real builds, a real gateway, Chromium
 npm run lint && npm run typecheck
 ```
