@@ -1,0 +1,30 @@
+{
+  "name": "@skewforge/vue",
+  "version": "0.1.0",
+  "description": "Vue 3 bindings for SkewForge: plugin, useSkew() and a Vue Router guard",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@skewforge/client": "*"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0",
+    "vue-router": "^4.0.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vue-router": { "optional": true }
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^2.5.1",
+    "jsdom": "^30.1.1",
+    "vue": "^3.5.43",
+    "vue-router": "^4.6.4"
+  }
+}
