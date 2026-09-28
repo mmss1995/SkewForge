@@ -1,0 +1,24 @@
+{
+  "name": "@skewforge/cli",
+  "version": "0.1.0",
+  "description": "Upload builds to a SkewForge gateway, promote, roll back and garbage-collect from CI",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "skewforge": "./dist/skewforge.js"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@skewforge/core": "*"
+  },
+  "devDependencies": {
+    "@skewforge/server": "*",
+    "esbuild": "^0.28.2"
+  }
+}
