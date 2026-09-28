@@ -1,0 +1,20 @@
+{
+  "name": "@skewforge/client",
+  "version": "0.1.0",
+  "description": "Browser runtime for SkewForge: update notices, reload-on-navigation and chunk-error recovery",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@skewforge/core": "*"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.1"
+  }
+}
