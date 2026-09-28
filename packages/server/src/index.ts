@@ -36,7 +36,10 @@ function shutdown(signal: string) {
   console.log(`[skewforge] ${signal}, shutting down`)
   clearInterval(gcTimer)
   gateway.close()
-  for (const server of servers) server.close()
+  for (const server of servers) {
+    server.close()
+    server.closeIdleConnections()
+  }
   setTimeout(() => process.exit(0), 5000).unref()
 }
 process.on('SIGTERM', () => shutdown('SIGTERM'))
